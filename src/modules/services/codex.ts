@@ -56,7 +56,7 @@ export const Codex: TranslateService = {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          model: getPref("codex.model") || "codex-auto",
+          model: getPref("codex.model") || "gpt-6-luna",
           messages: [
             { role: "system", content: system },
             { role: "user", content: user },

@@ -91,7 +91,7 @@ class FakeRpc extends EventEmitter {
       return {
         data: [
           {
-            model: "gpt-5.6-luna",
+            model: "gpt-6-luna",
             supportedReasoningEfforts: [{ reasoningEffort: "low" }],
           },
         ],
@@ -137,7 +137,7 @@ test("subscription check rejects API billing and missing login before starting a
   }
 });
 
-test("translation isolates thread, uses low reasoning, disables configured MCP, and releases thread", async () => {
+test("translation defaults to GPT-6 Luna with low reasoning and Fast mode in an isolated thread", async () => {
   const rpc = new FakeRpc();
   const translator = new CodexTranslator(rpc, "/tmp");
   await translator.initialize();
@@ -146,12 +146,21 @@ test("translation isolates thread, uses low reasoning, disables configured MCP, 
   });
   assert.equal(result.text, "译文");
   const start = rpc.calls.find((c) => c.method === "thread/start").params;
+  assert.equal(start.model, "gpt-6-luna");
+  assert.equal(start.serviceTier, "fast");
+  assert.equal(start.config["features.fast_mode"], true);
+  assert.equal(start.config.service_tier, "fast");
+  assert.equal(start.config.model_reasoning_effort, "low");
   assert.equal(start.ephemeral, true);
   assert.equal(start.sandbox, "read-only");
   assert.equal(start.config["mcp_servers.private_service.enabled"], false);
   assert.equal(
     rpc.calls.find((c) => c.method === "turn/start").params.effort,
     "low",
+  );
+  assert.equal(
+    rpc.calls.find((c) => c.method === "turn/start").params.serviceTier,
+    "fast",
   );
   assert.equal(rpc.calls.at(-1).method, "thread/unsubscribe");
   assert.equal(rpc.listenerCount("notification"), 0);

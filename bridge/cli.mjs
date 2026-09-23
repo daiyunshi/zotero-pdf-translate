@@ -3,7 +3,7 @@ import { randomBytes } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
-import { CodexTranslator } from "./codex-client.mjs";
+import { CodexTranslator, DEFAULT_MODEL } from "./codex-client.mjs";
 import { createBridgeServer } from "./server.mjs";
 
 const configPath =
@@ -48,7 +48,7 @@ try {
     console.log(config.token);
   } else if (command === "setup") {
     console.log(
-      `Configuration ready: ${configPath}\nEndpoint: http://127.0.0.1:${config.port}/v1/chat/completions\nModel: codex-auto\nUse 'node bridge/cli.mjs token' to copy your local token into Zotero.`,
+      `Configuration ready: ${configPath}\nEndpoint: http://127.0.0.1:${config.port}/v1/chat/completions\nModel: ${DEFAULT_MODEL}\nUse 'node bridge/cli.mjs token' to copy your local token into Zotero.`,
     );
   } else {
     const translator = await CodexTranslator.start();
@@ -68,7 +68,7 @@ try {
     });
     server.listen(config.port, "127.0.0.1", () =>
       console.log(
-        `Zotero translation ready: http://127.0.0.1:${config.port}/v1/chat/completions\nChatGPT subscription · ${translator.chooseModel().model} · low reasoning\nPress Ctrl+C to stop.`,
+        `Zotero translation ready: http://127.0.0.1:${config.port}/v1/chat/completions\nChatGPT subscription · ${translator.chooseModel().model} · low reasoning · Fast mode\nPress Ctrl+C to stop.`,
       ),
     );
     let stopping = false;

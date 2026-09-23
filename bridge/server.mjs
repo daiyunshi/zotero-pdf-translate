@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import { randomUUID, timingSafeEqual } from "node:crypto";
-import { BridgeError } from "./codex-client.mjs";
+import { BridgeError, DEFAULT_MODEL } from "./codex-client.mjs";
 
 export function validateRequest(body) {
   if (
@@ -50,7 +50,7 @@ export function validateRequest(body) {
     );
   return {
     messages: body.messages.map(({ role, content }) => ({ role, content })),
-    model: body.model || "codex-auto",
+    model: body.model || DEFAULT_MODEL,
     stream: body.stream === true,
   };
 }

@@ -135,7 +135,7 @@ pref(
   "http://127.0.0.1:18765/v1/chat/completions",
 );
 pref("__prefsPrefix__.codex.token", "");
-pref("__prefsPrefix__.codex.model", "codex-auto");
+pref("__prefsPrefix__.codex.model", "gpt-6-luna");
 pref("__prefsPrefix__.codex.stream", true);
 pref(
   "__prefsPrefix__.codex.prompt",

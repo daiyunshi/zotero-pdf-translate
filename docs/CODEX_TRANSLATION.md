@@ -35,14 +35,18 @@
    | ---------------- | -------------------------------------------- |
    | 地址             | `http://127.0.0.1:18765/v1/chat/completions` |
    | 本地服务连接密钥 | 上一步复制的密钥                             |
-   | 模型             | `codex-auto`                                 |
+   | 模型             | `gpt-6-luna`                                 |
    | 流式输出         | 开启                                         |
 
 5. 在 PDF 中选取完整句子测试。若启用单词词典，单个单词仍使用原词典服务。
 
 ## 模型和资源
 
-`codex-auto` 从账号实际可用模型中优先选择 `gpt-6-luna`、`gpt-5.6-luna` 等轻量模型，使用 `low` 推理档；没有候选轻量模型时使用账号默认模型。也可填写已开放的模型名，不存在的模型直接报错。
+默认固定使用 `gpt-6-luna`、`low` 推理档和 Fast 模式。2026-09-23 实际查询 Codex 模型目录，`low` 是此订阅路径为 GPT-6 Luna 开放的最低推理档位；API 文档中的 `none` 不等同于 Codex 可选档位。模型不存在时直接报错，不会自动替换。
+
+Fast 模式使用官方 `service_tier = "fast"` 和 `features.fast_mode = true`，仅作用于本翻译服务。根据 [Codex 官方说明](https://learn.chatgpt.com/docs/agent-configuration/speed)，GPT-6 Luna 的 Fast 模式按普通模式的 2.5 倍消耗 credits，仍受订阅额度约束。
+
+需要自动选择可用模型时，可手动改为 `codex-auto`：优先选择 `gpt-6-luna`、`gpt-5.6-luna` 等轻量模型，没有候选时使用账号默认模型。也可填写已开放的模型名。
 
 提示词要求保留否定、不确定性、数字、引文及基因/蛋白符号。仍需核对专业术语。本服务一次处理一个请求，最多等待 4 个请求，整个请求限时 120 秒；网络、文本长度和订阅排队会影响延迟。
 
@@ -52,7 +56,7 @@
 
 ## 沉浸式翻译 / 原版 Custom GPT
 
-服务提供精简的 OpenAI Chat Completions 兼容接口。完整地址为 `http://127.0.0.1:18765/v1/chat/completions`；若客户端要求 Base URL，填 `http://127.0.0.1:18765/v1`。API key 填本地连接密钥，模型填 `codex-auto`。
+服务提供精简的 OpenAI Chat Completions 兼容接口。完整地址为 `http://127.0.0.1:18765/v1/chat/completions`；若客户端要求 Base URL，填 `http://127.0.0.1:18765/v1`。API key 填本地连接密钥，模型填 `gpt-6-luna`。
 
 支持文本消息及流式/非流式输出；`temperature`、`max_tokens` 等参数不会改变 Codex 推理设置。不支持工具、多模态或 Responses API。原版 Custom GPT 的错误呈现受自身解析器限制，推荐本 fork 的专用服务。
 

@@ -5,6 +5,9 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
+export const DEFAULT_MODEL = "gpt-6-luna";
+export const DEFAULT_SERVICE_TIER = "fast";
+
 export class BridgeError extends Error {
   constructor(message, status = 502, code = "codex_error") {
     super(message);
@@ -24,6 +27,9 @@ Do not use tools, inspect files, browse the web, or perform any action beyond pr
 export const TRANSLATION_CONFIG = {
   model_provider: "openai",
   forced_login_method: "chatgpt",
+  model_reasoning_effort: "low",
+  service_tier: DEFAULT_SERVICE_TIER,
+  "features.fast_mode": true,
   approval_policy: "never",
   sandbox_mode: "read-only",
   web_search: "disabled",
@@ -230,7 +236,7 @@ export class CodexTranslator {
       );
   }
 
-  chooseModel(requested = "codex-auto") {
+  chooseModel(requested = DEFAULT_MODEL) {
     if (requested !== "codex-auto") {
       const model = this.models.find(
         (m) => m.model === requested || m.id === requested,
@@ -257,7 +263,7 @@ export class CodexTranslator {
 
   async translate({
     messages,
-    model = "codex-auto",
+    model = DEFAULT_MODEL,
     signal,
     onDelta = () => {},
   }) {
@@ -267,6 +273,7 @@ export class CodexTranslator {
     const { thread } = await this.rpc.request("thread/start", {
       model: selected.model,
       modelProvider: "openai",
+      serviceTier: DEFAULT_SERVICE_TIER,
       cwd: this.cwd,
       ephemeral: true,
       approvalPolicy: "never",
@@ -363,6 +370,7 @@ export class CodexTranslator {
       const result = await this.rpc.request("turn/start", {
         threadId: thread.id,
         input: [{ type: "text", text: prompt }],
+        serviceTier: DEFAULT_SERVICE_TIER,
         ...(effort ? { effort } : {}),
       });
       started = true;
