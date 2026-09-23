@@ -111,6 +111,11 @@ declare namespace _ZoteroTypes {
       "customGPT1.temperature": string;
       "customGPT2.temperature": string;
       "customGPT3.temperature": string;
+      "codex.endPoint": string;
+      "codex.token": string;
+      "codex.model": string;
+      "codex.stream": boolean;
+      "codex.prompt": string;
     };
   }
 }

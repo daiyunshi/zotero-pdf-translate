@@ -1,0 +1,31 @@
+name: Codex translation bridge
+on:
+  push:
+    branches: [main, codex/chatgpt-subscription-translation]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run test:bridge
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zotero-codex-translation
+          path: |
+            build/*.xpi
+            bridge/*.mjs
+            Start Translation.command
+            docs/CODEX_TRANSLATION.md
+            LICENSE

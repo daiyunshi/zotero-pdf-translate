@@ -1,5 +1,7 @@
 # ![Translate for Zotero](addon/chrome/content/icons/favicon.png)Translate for Zotero
 
+> **Codex subscription fork:** translate selections through your ChatGPT subscription using a local Codex App Server bridge, with results streamed into Zotero's existing popup. See [中文安装与使用说明](docs/CODEX_TRANSLATION.md). Uses Codex subscription limits; no OpenAI API key or local model is required.
+
 [![zotero target version](https://img.shields.io/badge/Zotero-7/8-green?style=flat-square&logo=zotero&logoColor=CC2936)](https://www.zotero.org)
 [![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
 

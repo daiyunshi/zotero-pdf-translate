@@ -192,3 +192,10 @@ service-nllb-dialog-apistream=nllb-api 流式输出
 service-nllb-dialog-serveendpoint=nllb-serve 接口
 service-nllb-dialog-apilabel=nllb-api 文档
 service-nllb-dialog-servelabel=nllb-serve 文档
+
+service-codex=ChatGPT 订阅（Codex）
+service-codex-description=先启动本地翻译服务，并使用 ChatGPT 账号登录 Codex。翻译使用 Codex 订阅额度，无需 OpenAI API 密钥。文本会发送到云端处理。
+service-codex-token=本地服务连接密钥
+service-codex-model=模型（codex-auto 自动选择可用的快速模型）
+service-codex-token-required=请将本地翻译服务生成的连接密钥填入设置；这里不需要 OpenAI API 密钥。
+service-codex-unavailable=无法连接本地 Codex 翻译服务，或请求已超时。请启动服务、检查地址，或选取更短的段落重试。

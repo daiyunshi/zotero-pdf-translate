@@ -130,3 +130,14 @@ pref("__prefsPrefix__.nllb.serveendpoint", "http://localhost:6060");
 pref("__prefsPrefix__.customGPT1.temperature", "1.0");
 pref("__prefsPrefix__.customGPT2.temperature", "1.0");
 pref("__prefsPrefix__.customGPT3.temperature", "1.0");
+pref(
+  "__prefsPrefix__.codex.endPoint",
+  "http://127.0.0.1:18765/v1/chat/completions",
+);
+pref("__prefsPrefix__.codex.token", "");
+pref("__prefsPrefix__.codex.model", "codex-auto");
+pref("__prefsPrefix__.codex.stream", true);
+pref(
+  "__prefsPrefix__.codex.prompt",
+  "Translate the following academic text from ${langFrom} to ${langTo}. Preserve meaning, uncertainty, negation, numerical values, citations, gene/protein symbols, and paragraph structure. Use established scientific terminology. Return only the translation, with no explanation. Source text: ${sourceText}",
+);

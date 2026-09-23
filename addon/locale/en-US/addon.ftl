@@ -192,3 +192,10 @@ service-nllb-dialog-apistream=nllb-api Stream
 service-nllb-dialog-serveendpoint=nllb-serve EndPoint
 service-nllb-dialog-apilabel=nllb-api Docs
 service-nllb-dialog-servelabel=nllb-serve Docs
+
+service-codex=ChatGPT Subscription (Codex)
+service-codex-description=Start the local translation bridge and sign in to Codex with ChatGPT. Uses your Codex subscription allowance; no OpenAI API key is needed. Translation is processed online.
+service-codex-token=Local bridge token
+service-codex-model=Model (codex-auto selects a fast available model)
+service-codex-token-required=Copy the local token from the bridge setup into this service's settings. This is not an OpenAI API key.
+service-codex-unavailable=Cannot reach the local Codex bridge, or the request timed out. Start the bridge, check the address, and retry with a shorter selection.
